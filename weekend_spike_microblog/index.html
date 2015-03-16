@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Blog Posts</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src='http://underscorejs.org/underscore-min.js'></script>
+	<script src="http://backbonejs.org/backbone-min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
+
+	<script src="app.js"></script>	
+
+</head>
+<body>
+
+	<script type="text/template" id="search_template">
+		<label>Title</label>
+		<input type="text" id="title" >{{title}}</input>
+		<label>Content</label>
+		<input type="text" id="content">{{content}}</input>
+		<label>Author Name</label>
+		<input type="text" id="author">
+		<input type="button" id="search_button" value="Create" />
+	</script>
+
+
+
+	<div id="search_container"></div>
+
+	<script type="text/javascript">
+
+		SearchView = Backbone.View.extend({
+			initialize: function(){
+				this.render();
+				// this.search_template = Handlebars.compile($('#search_template').html())
+			},
+			render: function(){
+				// console.log(this.template);
+				 // this.$el.html( this.model.get('title'));
+
+				alert(this.model.get('title'));
+				var template = _.template( $("#search_template").html(), {});
+				this.$el.html( template );
+			},
+			events: {
+				"click input[type=button]" : "createPost"
+			},
+			createPost: function (event){
+				var newPost = new App.Models.Note();
+				newPost.title = this.$('#title').val();
+				newPost.content = this.$('#content').val();
+				App.notes.push(newPost);
+			}
+		});
+
+		var search_view = new SearchView({ model: App.Models.Note, 
+										el: $('#search_container'), 
+										template: Handlebars.compile($("#search_template").html())});
+
+		var search_view = new SearchView({ el: $("#search_container") });
+	</script>
+
+	<script src="js/models/micropost_model.js"></script>
+	<script src="js/collections/micropost_collection.js"></script>
+	 <script src="js/views/micropost_collection_view.js"</script>
+
+</html>

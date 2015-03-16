@@ -1,0 +1,23 @@
+h1 {
+	color:red;
+}
+
+ul {
+	color:red;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#full-post-template {
+	float: left;
+	color: red;
+	display: inline;
+  	text-align: center;
+  	width: 1500px;
+
+}
+
+#navigation-bar {
+	color: orange;
+}
